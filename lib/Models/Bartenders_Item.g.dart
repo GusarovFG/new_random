@@ -17,7 +17,7 @@ class BartendersItemAdapter extends TypeAdapter<BartendersItem> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BartendersItem(
-      bartenders: (fields[0] as List).cast<String>(),
+      bartender: fields[0] as String,
     );
   }
 
@@ -26,7 +26,7 @@ class BartendersItemAdapter extends TypeAdapter<BartendersItem> {
     writer
       ..writeByte(1)
       ..writeByte(0)
-      ..write(obj.bartenders);
+      ..write(obj.bartender);
   }
 
   @override
