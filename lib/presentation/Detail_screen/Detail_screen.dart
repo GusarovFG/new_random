@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:new_random/Models/Bartenders_Item.dart';
 import 'package:new_random/Models/Work_shifts_item.dart';
 import 'package:new_random/presentation/Detail_screen/Detail_list_tile.dart';
+import 'package:new_random/presentation/Main_screen/Add_zone_dialog.dart';
 import 'package:new_random/presentation/Persistence/Decoration_for_container.dart';
 import 'package:new_random/services/hiveService/Hive_service.dart';
 import 'package:pattern_background/pattern_background.dart';
 
 class DetailScreen extends StatefulWidget {
   final WorkShiftsItem workShifts;
+  final int workShiftsIndex;
 
-  const DetailScreen({super.key, required this.workShifts});
+  const DetailScreen({
+    super.key,
+    required this.workShifts,
+    required this.workShiftsIndex,
+  });
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -18,6 +25,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final HiveService _hive = HiveService();
   late List<BartendersItem> _bartenders = [];
+  final _boxName = HiveService.boxNameWorkShiftsItem;
   String service = '';
   bool isRandom = false;
 
@@ -57,30 +65,64 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Column(
             children: [
               Expanded(
-                flex: 2,
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return (isRandom && index == 4)
-                          ? DetailListTile(
-                              workShift: widget.workShifts.zones[index],
-                              bartender: (isRandom && index == 4)
-                                  ? service
-                                  : _bartenders[index].bartender,
-                            )
-                          : DetailListTile(
-                              workShift: widget.workShifts.zones[index],
-                              bartender: isRandom
-                                  ? _bartenders[index].bartender
-                                  : null,
-                            );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                          height: 15,
-                        ),
-                    itemCount: widget.workShifts.zones.length),
+                flex: 4,
+                child: ValueListenableBuilder(
+                  valueListenable:
+                      Hive.box<WorkShiftsItem>(_boxName).listenable(),
+                  builder: (BuildContext context, Box<WorkShiftsItem> box,
+                      Widget? child) {
+                    return ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Dismissible(
+                            background: Container(
+                              color: Colors.red[200],
+                              child: const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [Text('удалить'), Text('удалить')],
+                              ),
+                            ),
+                            key: UniqueKey(),
+                            child: Container(
+                              decoration: DecorationForContainer.decoration,
+                              child: (isRandom && index == 4)
+                                  ? DetailListTile(
+                                      workShift: widget.workShifts.zones[index],
+                                      bartender: (isRandom && index == 4)
+                                          ? service
+                                          : _bartenders[index].bartender,
+                                    )
+                                  : DetailListTile(
+                                      workShift: widget.workShifts.zones[index],
+                                      bartender: isRandom
+                                          ? _bartenders[index].bartender
+                                          : '',
+                                    ),
+                            ),
+                            onDismissed: (direction) =>
+                                _hive.deleteZoneForWorkShift(
+                                    index: widget.workShiftsIndex,
+                                    workShift: widget.workShifts,
+                                    zone: widget.workShifts.zones[index]),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                              height: 15,
+                            ),
+                        itemCount: box.values
+                            .toList()[widget.workShiftsIndex]
+                            .zones
+                            .length);
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: GridView.count(
                   childAspectRatio: 4,
                   shrinkWrap: true,
@@ -97,7 +139,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           key: UniqueKey(),
                           background: Container(
                             color: Colors.red[200],
-                            child: const Center(child: Text('удалить')),
+                            child: const Center(
+                              child:
+                                  Text('удалить', textAlign: TextAlign.center),
+                            ),
                           ),
                           onDismissed: (direction) {
                             setState(() {
@@ -130,7 +175,35 @@ class _DetailScreenState extends State<DetailScreen> {
                     );
                   }),
                 ),
-              )
+              ),
+              Container(
+                decoration: DecorationForContainer.decoration,
+                child: IconButton(
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  onPressed: () {
+                    setState(() {
+                      getBartenders();
+                    });
+                  },
+                  icon: const Icon(Icons.refresh),
+                ),
+              ),
+              Container(
+                decoration: DecorationForContainer.decoration,
+                child: IconButton(
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AddZoneDialog(
+                        workShiftItem: widget.workShifts,
+                        index: widget.workShiftsIndex,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+              ),
             ],
           ),
         ),

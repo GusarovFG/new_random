@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:new_random/Models/Bartenders_Item.dart';
 import 'package:new_random/presentation/Persistence/Decoration_for_container.dart';
 import 'package:new_random/services/hiveService/Hive_service.dart';
@@ -25,6 +24,13 @@ class _BartendresListState extends State<BartendresList> {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return Dismissible(
+                  background: Container(
+                    color: Colors.red[200],
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [Text('удалить'), Text('удалить')],
+                    ),
+                  ),
                   key: UniqueKey(),
                   child: Container(
                     decoration: DecorationForContainer.decoration,

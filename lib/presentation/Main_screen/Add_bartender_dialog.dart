@@ -12,7 +12,7 @@ class AddBartenderDialog extends StatelessWidget {
 
     return SimpleDialog(
       contentPadding: const EdgeInsets.all(20),
-      title: const Text('Добавит бармена'),
+      title: const Text('Добавить бармена'),
       children: [
         TextField(
           autofocus: true,
