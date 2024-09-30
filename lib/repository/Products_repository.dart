@@ -43,13 +43,13 @@ class ProductsRepository {
   ];
 
   static void changeCount(int index, String count) {
-    products[index].setCount = count;
+    products[index].count = count;
     print(products[index].name + products[index].count);
   }
 
   static void shareProducts() {
     String shareText = products
-        .where((e) => e.count != '')
+        .where((e) => e.count.isNotEmpty)
         .map((e) => '${e.name} ${e.count}')
         .join('\n');
 

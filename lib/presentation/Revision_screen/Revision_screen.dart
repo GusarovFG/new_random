@@ -20,7 +20,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
   }
 
   void saveCount(int index, String count) {
-    products[index].setCount = count;
+    products[index].count = count;
     print(products[index].name + products[index].count);
   }
 

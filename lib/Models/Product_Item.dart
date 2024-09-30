@@ -2,14 +2,6 @@ class ProductItem {
   final String name;
   final TypeOfProduct type;
   String count = '';
-  set setCount(String value) {
-    switch (type.type) {
-      case TypeOfProductCount.liter:
-        count = double.parse(value).toString();
-      case TypeOfProductCount.peaceMeal:
-        count = int.parse(value).abs().toString();
-    }
-  }
 
   ProductItem({required this.name, required this.type});
 }
