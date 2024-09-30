@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:new_random/presentation/Application/Bottom_bar.dart';
 import 'package:new_random/presentation/Main_screen/Main_screen.dart';
 import 'package:new_random/presentation/Persistence/Decoration_for_container.dart';
+import 'package:new_random/presentation/Revision_screen/Revision_screen.dart';
 import 'package:new_random/presentation/Schedule_screen/Schedule_screen.dart';
 import 'package:pattern_background/pattern_background.dart';
 
@@ -17,7 +18,8 @@ class _ApplicationState extends State<Application> {
   final screens = [
     const MainScreen(),
     const MainScreen(),
-    const ScheduleScreen()
+    const ScheduleScreen(),
+    const RevisionScreen()
   ];
 
   void onClicked(int index) {

@@ -12,6 +12,7 @@ class WorkShiftsRepo {
 
   List<WorkShiftsItem> getWorkShifts() {
     List<WorkShiftsItem> workshifts = [];
+
     HiveService().getWorkShifts().then((value) {
       workshifts = value;
       print(workshifts);

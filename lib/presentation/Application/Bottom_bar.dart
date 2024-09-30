@@ -25,6 +25,8 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.black54,
+      showUnselectedLabels: true,
       currentIndex: widget.selectedIndex,
       onTap: widget.onClicked,
       iconSize: 30,
@@ -98,7 +100,9 @@ class _BottomBarState extends State<BottomBar> {
                 )),
             label: ''),
         const BottomNavigationBarItem(
-            icon: Icon(Icons.watch_later_outlined), label: 'График')
+            icon: Icon(Icons.watch_later_outlined), label: 'График'),
+        const BottomNavigationBarItem(
+            icon: Icon(Icons.local_restaurant_outlined), label: 'Ревизия')
       ],
     );
   }
