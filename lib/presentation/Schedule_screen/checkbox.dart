@@ -23,12 +23,21 @@ class _DayCheckboxState extends State<DayCheckbox> {
       child: Container(
         height: 30,
         width: 30,
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: const Color.fromARGB(255, 196, 36, 196), width: 2),
+            borderRadius: const BorderRadius.all(Radius.circular(15))),
         child: Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: ColoredBox(
-            color: !_isTapped ? Colors.white : Colors.black,
+          padding: const EdgeInsets.all(5.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: !_isTapped
+                  ? const Color.fromARGB(255, 37, 37, 37)
+                  : Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
           ),
         ),
       ),

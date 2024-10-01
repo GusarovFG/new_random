@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_random/Models/Product_Item.dart';
 import 'package:new_random/presentation/Revision_screen/Revision_listTile.dart';
+import 'package:new_random/presentation/persistence/Bar_appBar.dart';
 import 'package:new_random/repository/Products_repository.dart';
 
 class RevisionScreen extends StatefulWidget {
@@ -27,18 +28,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ревизия'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              ProductsRepository.shareProducts();
-            },
-            icon: const Icon(Icons.share),
-          ),
-        ],
-      ),
+      appBar:
+          const BarAppBar(nameOfAsset: 'assets/revision.png', revision: true),
       body: ListView.separated(
           shrinkWrap: true,
           padding: const EdgeInsets.all(10),
@@ -49,15 +40,19 @@ class _RevisionScreenState extends State<RevisionScreen> {
             final previousType = index > 0 ? products[index - 1].type.name : '';
             return productType != previousType
                 ? Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Column(
                       children: [
-                        Text(productType),
+                        Text(
+                          productType,
+                          style: const TextStyle(fontSize: 20),
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
                         Center(
                           child: RevisionListTile(
+                            key: UniqueKey(),
                             product: product,
                             index: index,
                           ),
@@ -66,6 +61,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
                     ),
                   )
                 : RevisionListTile(
+                    key: UniqueKey(),
                     product: product,
                     index: index,
                   );

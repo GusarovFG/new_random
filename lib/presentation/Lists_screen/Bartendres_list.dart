@@ -25,7 +25,12 @@ class _BartendresListState extends State<BartendresList> {
             itemBuilder: (BuildContext context, int index) {
               return Dismissible(
                   background: Container(
-                    color: Colors.red[200],
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 196, 36, 196),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
+                    ),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [Text('удалить'), Text('удалить')],
@@ -37,6 +42,7 @@ class _BartendresListState extends State<BartendresList> {
                     child: ListTile(
                       title: Text(
                         box.values.toList()[index].bartender,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),

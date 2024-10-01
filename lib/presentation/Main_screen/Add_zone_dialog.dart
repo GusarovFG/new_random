@@ -16,22 +16,27 @@ class AddZoneDialog extends StatelessWidget {
 
     return SimpleDialog(
       contentPadding: const EdgeInsets.all(20),
-      title: const Text('Добавить зону'),
+      title: const Text(
+        'ДОБАВИТЬ ЗОНУ',
+        textAlign: TextAlign.center,
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(25)),
+        side: BorderSide(
+          color: Color.fromARGB(255, 196, 36, 196),
+          width: 1,
+        ),
+      ),
       children: [
-        TextField(
-          autofocus: true,
-          cursorColor: Colors.black,
-          cursorWidth: 20,
-          controller: controller,
-          decoration: const InputDecoration(
-            filled: true,
-            fillColor: Colors.black26,
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 2),
-              borderRadius: BorderRadius.all(
-                Radius.circular(0),
-              ),
-            ),
+        Container(
+          decoration: DecorationForContainer.decoration,
+          child: TextField(
+            textAlign: TextAlign.center,
+            decoration: const InputDecoration(border: InputBorder.none),
+            autofocus: true,
+            cursorColor: const Color.fromARGB(255, 196, 36, 196),
+            cursorWidth: 5,
+            controller: controller,
           ),
         ),
         const SizedBox(

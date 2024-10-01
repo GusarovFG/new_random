@@ -42,7 +42,7 @@ class ProductsRepository {
     ProductItem(name: "Пощечина", type: Wine()),
   ];
 
-  static void changeCount(int index, String count) {
+  static void changeCount(int index, String count) async {
     products[index].count = count;
     print(products[index].name + products[index].count);
   }
@@ -52,7 +52,10 @@ class ProductsRepository {
         .where((e) => e.count.isNotEmpty)
         .map((e) => '${e.name} ${e.count}')
         .join('\n');
-
-    Share.share(shareText);
+    if (shareText.isNotEmpty) {
+      Share.share(shareText);
+    } else {
+      return;
+    }
   }
 }

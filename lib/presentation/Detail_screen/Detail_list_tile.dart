@@ -12,13 +12,20 @@ class DetailListTile extends StatelessWidget {
       height: 70,
       decoration: DecorationForContainer.decoration,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(workShift),
+          Text(
+            workShift,
+            style: const TextStyle(fontSize: 20),
+          ),
           const Divider(
             height: 2,
-            color: Colors.black,
+            color: Colors.white,
           ),
-          Text(bartender ?? '')
+          Text(
+            bartender ?? '',
+            style: const TextStyle(fontSize: 20),
+          )
         ],
       ),
     );

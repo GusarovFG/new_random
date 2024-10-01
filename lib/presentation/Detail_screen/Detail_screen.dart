@@ -138,7 +138,12 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: Dismissible(
                           key: UniqueKey(),
                           background: Container(
-                            color: Colors.red[200],
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 196, 36, 196),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(25),
+                              ),
+                            ),
                             child: const Center(
                               child:
                                   Text('удалить', textAlign: TextAlign.center),
@@ -176,33 +181,46 @@ class _DetailScreenState extends State<DetailScreen> {
                   }),
                 ),
               ),
-              Container(
-                decoration: DecorationForContainer.decoration,
-                child: IconButton(
-                  color: const Color.fromARGB(255, 0, 0, 0),
-                  onPressed: () {
-                    setState(() {
-                      getBartenders();
-                    });
-                  },
-                  icon: const Icon(Icons.refresh),
-                ),
-              ),
-              Container(
-                decoration: DecorationForContainer.decoration,
-                child: IconButton(
-                  color: const Color.fromARGB(255, 0, 0, 0),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AddZoneDialog(
-                        workShiftItem: widget.workShifts,
-                        index: widget.workShiftsIndex,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: DecorationForContainer.decoration,
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          getBartenders();
+                        });
+                      },
+                      icon: const Icon(Icons.refresh),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 196, 36, 196),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
                       ),
-                    );
-                  },
-                  icon: const Icon(Icons.add),
-                ),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AddZoneDialog(
+                            workShiftItem: widget.workShifts,
+                            index: widget.workShiftsIndex,
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.add),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

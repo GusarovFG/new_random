@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_random/presentation/Application/Bottom_bar.dart';
-import 'package:new_random/presentation/Main_screen/Main_screen.dart';
-import 'package:new_random/presentation/Persistence/Decoration_for_container.dart';
+import 'package:new_random/presentation/Bartenders_screen/Bartenders_screen.dart';
+import 'package:new_random/presentation/Main_screen/Workshifts_screen.dart';
 import 'package:new_random/presentation/Revision_screen/Revision_screen.dart';
 import 'package:new_random/presentation/Schedule_screen/Schedule_screen.dart';
 import 'package:pattern_background/pattern_background.dart';
@@ -16,20 +16,15 @@ class Application extends StatefulWidget {
 class _ApplicationState extends State<Application> {
   int selectedIndex = 0;
   final screens = [
-    const MainScreen(),
-    const MainScreen(),
+    const WorkshiftsScreen(),
+    const BartendersScreen(),
     const ScheduleScreen(),
     const RevisionScreen()
   ];
 
   void onClicked(int index) {
     setState(() {
-      switch (index) {
-        case 1:
-          return;
-        default:
-          selectedIndex = index;
-      }
+      selectedIndex = index;
     });
   }
 
@@ -41,23 +36,15 @@ class _ApplicationState extends State<Application> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'pixel'),
+      theme: ThemeData(fontFamily: 'kinetika', brightness: Brightness.dark),
       home: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: DecorationForContainer.decoration,
-              child: const Text('Жребий')),
-          centerTitle: true,
-        ),
         body: CustomPaint(
           size: Size(width, height),
           painter: DotPainter(dotColor: c1, dotRadius: 2, spacing: 5),
           child: screens[selectedIndex],
         ),
-        bottomNavigationBar: Container(
-          decoration: DecorationForContainer.decoration,
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(5.0),
           child: BottomBar(
             buildContext: context,
             selectedIndex: selectedIndex,
